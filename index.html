@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no">
+    <body>
+       
+    </body>
+    <script type="text/javascript">
+
+        function defineTest(data, key, val){
+            observe(val);
+
+            Object.defineProperty(data, key, {
+                get: function(){
+                    return val;
+                },
+                set: function(newValue){
+                    val = newValue;
+                    console.log("成功！,newValue="+newValue)
+                }
+            })
+        }
+
+       function observe(data){
+            if(!data || typeof data !== 'object'){
+                return;
+            }
+            Object.keys(data).forEach(function(key){
+                defineTest(data, key, data[key]);
+            })
+       }
+
+       var library = {
+            book1: {
+                name: ''
+            },
+            book2: ''
+        };
+        observe(library);
+        library.book1.name = 'vue权威指南'; // 属性name已经被监听了，现在值为：“vue权威指南”
+        library.book2 = '没有此书籍';  // 属性book2已经被监听了，现在值为：“没有此书籍”
+       
+    </script>
+</html>
