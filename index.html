@@ -13,29 +13,6 @@
     </body>
     <script type="text/javascript">
 
-        function defineTest(data, key, val){
-            observe(val);
-
-            Object.defineProperty(data, key, {
-                get: function(){
-                    return val;
-                },
-                set: function(newValue){
-                    val = newValue;
-                    console.log("成功！,newValue="+newValue)
-                }
-            })
-        }
-
-       function observe(data){
-            if(!data || typeof data !== 'object'){
-                return;
-            }
-            Object.keys(data).forEach(function(key){
-                defineTest(data, key, data[key]);
-            })
-       }
-
        var library = {
             book1: {
                 name: ''
